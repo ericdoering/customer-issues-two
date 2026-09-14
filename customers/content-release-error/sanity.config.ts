@@ -3,6 +3,7 @@ import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {documentInternationalization} from '@sanity/document-internationalization'
 import {schemaTypes} from './schemaTypes'
+import { lesson } from './schemaTypes/lesson'
 
 export default defineConfig({
   name: 'default',
@@ -23,7 +24,5 @@ export default defineConfig({
     }),
   ],
 
-  schema: {
-    types: schemaTypes,
-  },
+  schema: {types: [lesson]}
 })
