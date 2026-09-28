@@ -8,8 +8,8 @@ const geistSans = Geist({
 })
 
 export const metadata: Metadata = {
-  title: 'Landing Page perspectives',
-  description: 'Preview Sanity published, draft, and Content Release perspectives',
+  title: 'Timeline preview',
+  description: 'Preview landing pages as they will look at a chosen Content Release date',
 }
 
 export default function RootLayout({children}: LayoutProps<'/'>) {
