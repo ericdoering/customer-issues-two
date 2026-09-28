@@ -1,10 +1,14 @@
 import {defineQuery} from 'next-sanity'
 
 export const RELEASES_QUERY = defineQuery(`
-  releases::all()[state in ["active", "scheduled"]] | order(_createdAt asc) {
+  releases::all()[
+    state in ["active", "scheduled"] &&
+    defined(coalesce(publishAt, metadata.intendedPublishAt))
+  ]{
     name,
     state,
-    metadata { title, releaseType }
+    "title": metadata.title,
+    "at": coalesce(publishAt, metadata.intendedPublishAt)
   }
 `)
 

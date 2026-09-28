@@ -3,6 +3,8 @@ import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
 import { DeepDuplicateAction } from './deepCopy/deepDuplicateAction'
+import {CalendarIcon} from '@sanity/icons/Calendar'
+import { TimelinePreview } from './timelinePreview/timelinePreview'
 const DEEP_COPY_TYPES = ['landingPage']
 
 export default defineConfig({
@@ -25,4 +27,13 @@ export default defineConfig({
         ? [...prev.filter((action) => action.action !== 'duplicate'), DeepDuplicateAction]
         : prev,
   },
+  tools: (prev) => [
+    ...prev,
+    {
+      name: 'timeline-preview',
+      title: 'Timeline preview',
+      icon: CalendarIcon,
+      component: TimelinePreview,
+    },
+  ],
 })

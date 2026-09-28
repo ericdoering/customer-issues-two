@@ -1,39 +1,39 @@
 import type {ClientPerspective} from '@sanity/client'
 
-export type ReleaseOption = {
+export type DatedRelease = {
   name: string
+  title?: string | null
   state: string
-  metadata?: {
-    title?: string | null
-    releaseType?: string | null
-  } | null
+  at: string
 }
 
-export type PerspectiveOption = {
-  label: string
-  value: string
-  kind: 'published' | 'drafts' | 'release'
+// <input type="datetime-local"> expects local time as "YYYY-MM-DDTHH:mm"
+export function toLocalInput(date: Date) {
+  return new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().slice(0, 16)
 }
 
-export const BUILTIN_PERSPECTIVES: PerspectiveOption[] = [
-  {label: 'Published', value: 'published', kind: 'published'},
-  {label: 'Drafts', value: 'drafts', kind: 'drafts'},
-]
-
-export function releaseToOption(release: ReleaseOption): PerspectiveOption {
-  return {
-    label: release.metadata?.title || release.name,
-    value: release.name,
-    kind: 'release',
-  }
+function firstString(value: string | string[] | undefined) {
+  return Array.isArray(value) ? value[0] : value
 }
 
-export function resolvePerspective(value: string | undefined): ClientPerspective {
-  if (!value || value === 'published') return 'published'
-  if (value === 'drafts' || value === 'raw') return value
-  return [value]
+export function atInputValue(value: string | string[] | undefined) {
+  const raw = firstString(value)
+  if (raw && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(raw)) return raw
+  return toLocalInput(new Date())
 }
 
-export function needsPreviewToken(value: string | undefined) {
-  return Boolean(value) && value !== 'published'
+export function parseAtParam(value: string | string[] | undefined) {
+  const parsed = new Date(atInputValue(value))
+  return Number.isNaN(parsed.getTime()) ? new Date() : parsed
+}
+
+export function liveReleases(releases: DatedRelease[], at: Date) {
+  return releases
+    .filter((release) => Date.parse(release.at) <= at.getTime())
+    .sort((a, b) => Date.parse(b.at) - Date.parse(a.at))
+}
+
+export function perspectiveAsOf(releases: DatedRelease[], at: Date): ClientPerspective {
+  const stack = liveReleases(releases, at).map((release) => release.name)
+  return stack.length ? stack : 'published'
 }
