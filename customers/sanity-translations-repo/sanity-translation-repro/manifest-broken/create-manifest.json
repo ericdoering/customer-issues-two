@@ -1,0 +1,23 @@
+{
+  "createdAt": "2026-11-22T18:42:40.957Z",
+  "studioVersion": "6.24.0",
+  "version": 3,
+  "workspaces": [
+    {
+      "basePath": "/",
+      "dataset": "dev",
+      "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 32 32\"><rect width=\"32\" height=\"32\" rx=\"2\" fill=\"#721fe5\"></rect><text x=\"50%\" y=\"50%\" text-anchor=\"middle\" alignment-baseline=\"middle\" fill=\"hsla(265, 79%, 91%, 1)\" style=\"font-family:Inter, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, &quot;Liberation Sans&quot;, Helvetica, Arial, system-ui, sans-serif;font-weight:500;font-size:13px;transform:translateY(1px)\">S</text></svg>",
+      "mediaLibrary": {
+        "enabled": false,
+        "__internal": {
+          "federatedAssetSource": true
+        }
+      },
+      "name": "default",
+      "projectId": "aehb7360",
+      "schema": "ec801adb.create-schema.json",
+      "title": "sanity-translations-repo",
+      "tools": "a1fd46b5.create-tools.json"
+    }
+  ]
+}
